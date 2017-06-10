@@ -41,9 +41,11 @@ void imageProcessingFun(const QString& progName, QImage* const outImgs, const QI
 		/* Input image data in RGB format can be obtained with inImgs->bits() */
 		/* Vertical scale factor is params[0] */
 		/* Horizontal scale factor is params[1] */
-
+		int newXSize = ((int)(X_SIZE * params[1])) % 4 == 0 ? (int)(X_SIZE * params[1]) : (int)(X_SIZE * params[1]) + 4 - ((int)(X_SIZE * params[1])) % 4;
+		int newYSize = ((int)(Y_SIZE * params[0])) % 4 == 0 ? (int)(Y_SIZE * params[0]) : (int)(Y_SIZE * params[0]) + 4 - ((int)(Y_SIZE * params[0])) % 4;
 		/* TO DO: Calculate output image resolution and construct output image object */
-
+		*outImgs = *(new QImage(newXSize, newYSize, inImgs->format()));
+		bicubicInterpolate(inImgs->bits(), X_SIZE, Y_SIZE, outImgs->bits(), newXSize, newYSize);
 		/* TO DO: Perform Bicubic interpolation  */
 
 	}
