@@ -224,12 +224,20 @@ void bicubicInterpolate(const uchar input[], int xSize, int ySize, uchar output[
 					pointsY[jj] = Y_buff_in[m[ii] * xSize + n[jj]];
 				}
 				double d = (xPos > 1) ? xPos - (double)n[0] : xPos - (double)n[0]+1;
-				d = (xPos < xSize - 2) ? xPos - (double)n[0] : xPos - (double)(xSize - 3);
+				if (xPos >= xSize - 2 && xPos < xSize - 1)
+					d = xPos - (double)(xSize - 3);
+				else if(xPos >= xSize-1)
+					d = xPos - (double)(xSize - 2);
+
 				tmpBuffY[ii] = (uchar) cubicInterpolate(pointsY, d, 0);
 			}
 			
 			double d = (yPos > 1) ? yPos - (double)m[0] : yPos - (double)m[0] + 1;
-			d = (yPos < ySize - 2) ? yPos - (double)m[0] : yPos - (double)(ySize-3);
+			if (yPos >= ySize - 2 && yPos < ySize - 1)
+				d = yPos - (double)(ySize - 3);
+			else if (yPos >= ySize - 1)
+				d = yPos - (double)(ySize - 2);
+
 			Y_buff_out[i*newXSize + j] = (uchar) cubicInterpolate(tmpBuffY, d, 0);
 		}
 	}
@@ -260,12 +268,19 @@ void bicubicInterpolate(const uchar input[], int xSize, int ySize, uchar output[
 					pointsV[jj] = V_buff_in[m[ii] * xSize / 2 + n[jj]];
 				}
 				double d = (xPos > 1) ? xPos - (double)n[0] : xPos - (double)n[0] + 1;
-				d = (xPos < xSize/2 - 2) ? xPos - (double)n[0] : xPos - (double)(xSize/2 - 3);
+				if (xPos >= xSize/2 - 2 && xPos < xSize/2 - 1)
+					d = xPos - (double)(xSize/2 - 3);
+				else if (xPos >= xSize/2 - 1)
+					d = xPos - (double)(xSize/2 - 2);
 				tmpBuffU[ii] = (char) cubicInterpolate(pointsU, d, 1);
 				tmpBuffV[ii] = (char) cubicInterpolate(pointsV, d, 1);
 			}
 			double d = (yPos > 1) ? yPos - (double)m[0] : yPos - (double)m[0] + 1;
-			d = (yPos < ySize/2 - 2) ? yPos - (double)m[0] : yPos - (double)(ySize/2 - 3);
+			if (yPos >= ySize/2 - 2 && yPos < ySize/2 - 1)
+				d = yPos - (double)(ySize/2 - 3);
+			else if (yPos >= ySize/2 - 1)
+				d = yPos - (double)(ySize/2 - 2);
+
 			U_buff_out[i*newXSize / 2 + j] = (char) cubicInterpolate(tmpBuffU, d, 1);
 			V_buff_out[i*newXSize/2 + j] = (char) cubicInterpolate(tmpBuffV, d, 1);
 		}
