@@ -21,7 +21,7 @@ void sampleAndHold(const uchar input[], int xSize, int ySize, uchar output[], in
 
 	for (int i = 0; i < newYSize; i++)
 	{
-		ii = (int) floor((i-1) / yFactor + 1 + 0.5);
+		ii = (int) round((i-1) / yFactor + 1);
 
 		if (ii < 0)
 			ii = 0;
@@ -30,7 +30,7 @@ void sampleAndHold(const uchar input[], int xSize, int ySize, uchar output[], in
 
 		for (int j = 0; j < newXSize; j++)
 		{
-			jj = (int) floor((j - 1) / xFactor + 1 + 0.5);
+			jj = (int) round((j - 1) / xFactor + 1);
 
 			if (jj < 0)
 				jj = 0;
@@ -43,7 +43,7 @@ void sampleAndHold(const uchar input[], int xSize, int ySize, uchar output[], in
 
 	for (int i = 0; i < newYSize/2; i++)
 	{
-		ii = (int)floor((i - 1) / yFactor + 1 + 0.5);
+		ii = (int)round((i - 1) / yFactor + 1);
 
 		if (ii < 0)
 			ii = 0;
@@ -52,7 +52,7 @@ void sampleAndHold(const uchar input[], int xSize, int ySize, uchar output[], in
 
 		for (int j = 0; j < newXSize/2; j++)
 		{
-			jj = (int)floor((j - 1) / xFactor + 1 + 0.5);
+			jj = (int)round((j - 1) / xFactor + 1);
 
 			if (jj < 0)
 				jj = 0;
@@ -381,8 +381,8 @@ void imageRotate(const uchar input[], int xSize, int ySize, uchar output[], int 
 	{
 		for (int j = 0; j < xSize; j++)
 		{
-			jj = floor(j*cos(angle) - i*sin(angle) + m*sin(angle) - n*cos(angle) + n + 0.5);
-			ii = floor(i*cos(angle) + j*sin(angle) - m*cos(angle) - n*sin(angle) + m + 0.5);
+			jj = round(j*cos(angle) - i*sin(angle) + m*sin(angle) - n*cos(angle) + n);
+			ii = round(i*cos(angle) + j*sin(angle) - m*cos(angle) - n*sin(angle) + m);
 
 			if (ii > ySize - 1 || ii < 0 || jj > xSize-1 || jj < 0)
 				Y_buff_out[i*xSize + j] = 0;
@@ -395,8 +395,8 @@ void imageRotate(const uchar input[], int xSize, int ySize, uchar output[], int 
 	{
 		for (int j = 0; j < xSize/2; j++)
 		{
-			jj = floor(j*cos(angle) - i*sin(angle) + m/2.0*sin(angle) - n/2.0*cos(angle) + n/2.0 + 0.5);
-			ii = floor(i*cos(angle) + j*sin(angle) - m/2.0*cos(angle) - n/2.0*sin(angle) + m/2.0 + 0.5);
+			jj = round(j*cos(angle) - i*sin(angle) + m/2.0*sin(angle) - n/2.0*cos(angle) + n/2.0);
+			ii = round(i*cos(angle) + j*sin(angle) - m/2.0*cos(angle) - n/2.0*sin(angle) + m/2.0);
 
 			if (ii > ySize/2 - 1 || ii < 0 || jj > xSize/2 - 1 || jj < 0)
 			{
